@@ -1,0 +1,115 @@
+<script src=CT_Modeler.js></script>
+
+<body bgcolor=black>
+<center>
+<canvas id='canvas1' width='600' height='600'></canvas>
+</center>
+</body>
+
+<script>
+   function getTime() { return (new Date()).getTime() / 1000; }
+
+   var scene = new CT.Scene(canvas1);
+   scene.setLight(0, [ 1, 1, 1]);
+   scene.setLight(1, [-1,-1,-1], [.1, .05, 0]);
+
+   var root = new CT.Node();
+   scene.add(root);
+/*
+   root.addChild(new CT.Torus(32, 16, .6));
+*/
+   
+    //tiny head
+   var head = root.addChild(new CT.Sphere());
+   head.translate(7,.5,0).scale([.6,.6,.6]);
+   head.setTexture('images/bb8_pattern_opt.jpg');
+
+
+   var dajoint = root.addChild(new CT.Node());
+   var body = dajoint.addChild(new CT.Sphere());
+   body.setTexture('images/bb8_pattern_opt.jpg');
+
+
+   //upper arm1
+   var shape1 = root.addChild(new CT.Sphere());
+   //var shape1 = root.addChild(new CT.Torus(32,16,.6));
+   shape1.translate(3,0,0).scale([1,.3,.3]);
+   shape1.setMetal(1,1,0);
+
+   //arm1
+   var joint = root.addChild(new CT.Node());
+   var shape2 = joint.addChild(new CT.Cylinder());
+
+   //body
+   var joint2 = root.addChild(new CT.Node());
+   var shape3 = joint2.addChild(new CT.Cube());
+
+   //head
+   var joint3 = root.addChild(new CT.Node());
+   var shape4 = joint3.addChild(new CT.Sphere());
+
+   //upper arm2
+   var shape5 = root.addChild(new CT.Sphere());
+   shape5.translate(-1,0,0).scale([1,.3,.3]);
+   shape5.setMetal(1,1,0);
+
+   //arm2
+   var joint4 = root.addChild(new CT.Node());
+   var shape6 = joint4.addChild(new CT.Cylinder());
+
+   //leg1, right
+   var joint5 = root.addChild(new CT.Node());
+   var shape7 = joint5.addChild(new CT.Cylinder());
+
+   //leg2, left
+   var joint6 = root.addChild(new CT.Node());
+   var shape8 = joint6.addChild(new CT.Cylinder());
+
+  
+
+
+   var startTime = getTime();
+   (function update() {
+      CT.time = getTime() - startTime;
+/*
+      root.identity().rotateY(CT.time).scale(.3);
+*/
+      root.identity().rotateY(Math.sin(CT.time))
+		     .translate(-.5,0,0).rotateZ(Math.cos(CT.time)).scale(.15);
+
+       var t = CT.time;
+      root.getChild(1).identity().translate(7,-.5,0).scale([1,1,1]).rotateZ(t*-2);
+
+      //arm 1
+      joint.identity().translate(4,0,0).rotateZ(Math.sin(CT.time));
+      shape2.identity().translate(1,0,0).scale([1,.3,.3]).rotateY(Math.PI/2);
+      shape2.setPhong([.1,0,0, .5,0,.5+.5*Math.sin(10*CT.time), .5,.5,5,10]);
+
+      //body
+      joint2.identity().translate(1,0,0).scale(1,1.5,1).rotateZ(Math.sin(CT.time));
+      shape3.setPhong([0,.3,0, 0,.7,.5+.5*Math.sin(10*CT.time), .5,.5,6,10]);
+
+      //head
+      joint3.identity().translate(0,1.5,0);
+      shape4.setPhong([0,.3,.7, 0,.7,.5+.5*Math.sin(10*CT.time), .5,.5,6,10]);
+
+      //left arm2
+     // joint4.identity().translate(0,0,0).rotateZ(Math.sin(CT.time));
+      shape6.identity().translate(-3,0,0).scale([1,.3,.3]).rotateY(Math.PI/2);
+      shape6.setPhong([.1,0,0, .5,0,.5+.5*Math.sin(10*CT.time), .5,.5,5,10]);
+
+      //leg1, rotateX to make it go vertical
+      shape7.identity().translate(1.5,-2.5,0).scale([.3,2,.3]).rotateX(1.5);
+      shape7.setPhong([.1,0,0, .5,0,.5+.5*Math.sin(10*CT.time), .5,.5,5,10]);
+
+      //leg2
+      shape8.identity().translate(.5,-2.5,0).scale([.3,2,.3]).rotateX(1.5);
+      shape8.setPhong([.1,0,0, .5,0,.5+.5*Math.sin(10*CT.time), .5,.5,5,10]);
+
+
+      root.draw();
+
+      setTimeout(update, 1000 / 60);
+   })();
+</script>
+

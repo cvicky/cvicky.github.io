@@ -1,6 +1,10 @@
 <script src=CT_Modeler.js></script>
 
 <body bgcolor=black>
+ <audio controls loop autoplay>
+        <source src="Star Wars Theme.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
 <center>
 <canvas id='canvas1' width='480' height='480'></canvas>
 </center>
@@ -32,6 +36,9 @@
    var startTime = getTime();
    (function update() {
       CT.time = getTime() - startTime;
+
+      root.identity().rotateY(Math.sin(CT.time))
+           .translate(0,0,0).rotateZ(Math.cos(CT.time)).scale(1);
 
       var t = CT.time;
       root.getChild(1).identity().scale([.5,.5,.5]).rotateZ(t*-2);

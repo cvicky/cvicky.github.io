@@ -18,8 +18,15 @@
 /*
    root.addChild(new CT.Torus(32, 16, .6));
 */
-   root.addChild(new CT.Cube());
-   root.getChild(0).setTexture('images/bb8_pattern_opt.jpg');
+   //tiny head
+   var shape1 = root.addChild(new CT.Sphere());
+   shape1.translate(-.25,1,0).scale([.6,.6,.6]);
+   shape1.setTexture('images/bb8_pattern_opt.jpg');
+
+
+   var joint1 = root.addChild(new CT.Node());
+   var shape2 = joint1.addChild(new CT.Sphere());
+   shape2.setTexture('images/bb8_pattern_opt.jpg');
 
 
    
@@ -31,8 +38,14 @@
 /*
       root.identity().rotateY(CT.time).scale(.3);
 */
-      root.getChild(0).identity().rotateY(Math.sin(CT.time))
-		     .translate(-.5,0,0).rotateZ(Math.cos(CT.time)).scale(.3);
+     root.identity()
+           .translate(-.5,0,0).rotateZ(Math.cos(CT.time)/5).scale(.3);
+
+
+      //arm 1
+      joint1.identity().translate(0,0,0).rotateZ(Math.sin(CT.time));
+ //     shape2.identity().translate(1,0,0).scale([1,.3,.3]).rotateY(Math.PI/2);
+      
 
 
       root.draw();

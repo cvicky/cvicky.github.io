@@ -26,10 +26,7 @@
 
    var dajoint = root.addChild(new CT.Node());
    var body = dajoint.addChild(new CT.Sphere());
-   body.setTexture('images/bb8_pattern_opt.jpg');
-
-
-   
+   body.setTexture('images/bb8_pattern_opt.jpg');  
 
 
    var startTime = getTime();
@@ -38,9 +35,6 @@
 
       var t = CT.time;
       root.getChild(1).identity().scale([.5,.5,.5]).rotateZ(t*-2);
-
-      
-
 
       root.draw();
 

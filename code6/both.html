@@ -19,9 +19,9 @@
    root.addChild(new CT.Torus(32, 16, .6));
 */
    
-    //tiny head
+   //tiny head
    var head = root.addChild(new CT.Sphere());
-   head.translate(7,.5,0).scale([.6,.6,.6]);
+   head.translate(7,.85,0).scale([.75,.75,.75]);
    head.setTexture('images/bb8_pattern_opt.jpg');
 
 
@@ -77,8 +77,9 @@
       root.identity().rotateY(Math.sin(CT.time))
 		     .translate(-.5,0,0).rotateZ(Math.cos(CT.time)).scale(.15);
 
-       var t = CT.time;
-      root.getChild(1).identity().translate(7,-.5,0).scale([1,1,1]).rotateZ(t*-2);
+      var t = CT.time;
+      root.getChild(1).identity().translate(7,-.5,0).scale([1.35,1.35,1.35]).rotateZ(t*-2);
+
 
       //arm 1
       joint.identity().translate(4,0,0).rotateZ(Math.sin(CT.time));

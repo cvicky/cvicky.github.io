@@ -20,7 +20,7 @@
 */
    //tiny head
    var shape1 = root.addChild(new CT.Sphere());
-   shape1.translate(-.25,1,0).scale([.6,.6,.6]);
+   shape1.translate(-.25,.5,0).scale([.3,.3,.3]);
    shape1.setTexture('images/bb8_pattern_opt.jpg');
 
 
@@ -43,8 +43,9 @@
            .translate(-.5,0,0).rotateX(Math.cos(CT.time)*Math.cos(CT.time)*Math.sin(CT.time)*Math.sin(CT.time)).scale(.3);
 */
       var t = CT.time;
-      root.identity().scale([.5,.5,.5]).rotateY(t);
-     // shape2.identity().scale([.5,.5,.5]).rotateY(t).rotateX(t/2);
+      root.getChild(1).identity().scale([.5,.5,.5]).rotateY(t*t);
+    //  root.getChild(1).identity().scale([.5,.5,.5]).rotateY(t);
+      
 
       //arm 1
      // joint1.identity().translate(0,0,0).rotateY(Math.sin(CT.time));

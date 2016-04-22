@@ -39,7 +39,7 @@
       root.identity().rotateY(CT.time).scale(.3);
 */
      root.identity()
-           .translate(-.5,0,0).rotateZ(Math.cos(CT.time)/5).scale(.3);
+           .translate(-.5,0,0).rotateX(Math.cos(CT.time)*Math.cos(CT.time)*Math.sin(CT.time)*Math.sin(CT.time)).scale(.3);
 
 
       //arm 1

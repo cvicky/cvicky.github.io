@@ -1,0 +1,68 @@
+<script src=CT_Modeler.js></script>
+
+<body bgcolor=black>
+   <audio controls loop autoplay>
+        <source src="Star Wars Theme.mp3" type="audio/mpeg">
+        <script>
+        var audio = document.currentScript.parentElement;
+        audio.volume = 0.1;
+        </script>
+        Your browser does not support the audio element.
+      </audio>
+
+<center>
+<canvas id='canvas1' width='600' height='600'></canvas>
+</center>
+</body>
+
+<script>
+   function getTime() { return (new Date()).getTime() / 1000; }
+
+   var scene = new CT.Scene(canvas1);
+   scene.setLight(0, [ 1, 1, 1]);
+   scene.setLight(1, [-1,-1,-1], [.1, .05, 0]);
+
+   var root = new CT.Node();
+   scene.add(root);
+/*
+   root.addChild(new CT.Torus(32, 16, .6));
+*/
+   
+   //tiny head
+   var head = root.addChild(new CT.Sphere());
+   head.translate(7,.85,0).scale([.75,.75,.75]);
+   head.setTexture('images/bb8_pattern_opt.jpg');
+
+
+   var dajoint = root.addChild(new CT.Node());
+   var body = dajoint.addChild(new CT.Sphere());
+   body.setTexture('images/bb8_pattern_opt.jpg');
+
+
+   var box= root.addChild(new CT.Cube());
+   box.setTexture('tardis_pattern.png');
+
+  
+
+
+   var startTime = getTime();
+   (function update() {
+      CT.time = getTime() - startTime;
+/*
+      root.identity().rotateY(CT.time).scale(.3);
+*/
+      root.identity().rotateY(Math.sin(CT.time))
+		     .translate(-.5,0,0).rotateZ(Math.cos(CT.time)).scale(.15);
+
+      var t = CT.time;
+      root.getChild(1).identity().translate(7,-.5,0).scale([1.35,1.35,1.35]).rotateZ(t*-2);
+
+
+
+
+      root.draw();
+
+      setTimeout(update, 1000 / 60);
+   })();
+</script>
+

@@ -3,6 +3,10 @@
 <body bgcolor=black>
    <audio controls loop autoplay>
         <source src="Star Wars Theme.mp3" type="audio/mpeg">
+        <script>
+        var audio = document.currentScript.parentElement;
+        audio.volume = 0.1;
+        </script>
         Your browser does not support the audio element.
       </audio>
 

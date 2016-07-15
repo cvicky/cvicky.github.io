@@ -55,7 +55,8 @@ for (var x = 0; x < 30; x += 2) {
 	shapes[i] = new Array();
 	for (var y = 0; y < 30; y += 2) {
 		// Create thin cone shape
-		var geometry = new THREE.CubeGeometry(0, 0.1, 0.08, 20, 1, false);			
+		var geometry = new THREE.SphereGeometry(.5,.5,.5);
+		//THREE.CylinderGeometry(0, 0.1, 0.08, 20, 1, false);			
 		var material = new THREE.MeshPhongMaterial({
 			color: randomColor(),
 			wireframe: false

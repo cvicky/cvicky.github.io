@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Export Spotify Playlist</title>
+    <title>Simple Playlist Exporter</title>
 
 
 
@@ -23,24 +23,20 @@
 body {
   padding: 20px;
 }
-
 #playlists-list {
   width: 30%;
 }
-
 #playlist-detail {
   width: 65%;
 }
 #playlist-detail, #playlists-list {
   float: left;
 }
-
 .cover {
   width: 300px;
   height: 300px;
   background-size: cover;
 }
-
 td, th {
   padding: 3px 10px;
 }
@@ -52,8 +48,6 @@ tr {
 
 
     <script type='text/javascript'>//<![CDATA[ 
-
-
 var cached_data;
 function save_csv() {
   Downloadify.create("download",{
@@ -67,7 +61,6 @@ function save_csv() {
     data: $("#output").val(),
   });
 }
-
 window.onload=function(){
   // find template and compile it
   var playlistsListTemplateSource = document.getElementById('playlists-list-template').innerHTML,
@@ -75,25 +68,20 @@ window.onload=function(){
     playlistsListPlaceholder = document.getElementById('playlists-list'),
     csvTemplateSource= document.getElementById('csv-template').innerHTML,
       csvTemplate = Handlebars.compile(csvTemplateSource),
-
       playlistDetailTemplateSource = document.getElementById('playlist-detail-template').innerHTML,
         playlistDetailTemplate = Handlebars.compile(playlistDetailTemplateSource),
         playlistDetailPlaceholder = document.getElementById('playlist-detail')
-
           document.getElementById('login').addEventListener('click', function() {
             login();
           });
-
-
   function login() {
     var width = 400,
     height = 500;
     var left = (screen.width / 2) - (width / 2);
     var top = (screen.height / 2) - (height / 2);
-
     var params = {
       client_id:'be543ed5aa8145db841f89b00a540810',
-      redirect_uri: 'https://cvicky.github.io/export-spotify-playlist/playlist/show.html',
+      redirect_uri: 'https://cvicky.github.io/playlist/show.html',
       scope: 'playlist-read playlist-read-private',
       response_type: 'token'
     };
@@ -103,9 +91,8 @@ window.onload=function(){
         'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
         );
   }
-
   function receiveMessage(event){
-    if (event.origin !== "https://cvicky.github.io/") {
+    if (event.origin !== "https://cvicky.github.io") {
       return;
     }
     if (authWindow) {
@@ -113,9 +100,7 @@ window.onload=function(){
     }
     showInfo(event.data);
   }
-
   window.addEventListener("message", receiveMessage, false);
-
   function toQueryString(obj) {
     var parts = [];
     for (var i in obj) {
@@ -126,10 +111,7 @@ window.onload=function(){
     return parts.join("&");
   }
   var authWindow = null;
-
   var token = null;
-
-
   function showInfo(accessToken) {
     token = accessToken;
     // fetch my public playlists
@@ -147,13 +129,10 @@ window.onload=function(){
           },
           success: function(response) {
             console.log("RESPONSE:"+JSON.stringify(response.items));
-
             //temp fix for strange null hrefs on items
-
             extractPlaylists(response, accessToken);
           }
         });
-
         $('div#login').hide();
         $('div#loggedin').show();
       }
@@ -164,7 +143,6 @@ window.onload=function(){
     allPlaylists = allPlaylists.concat(playlists);
     playlistsListPlaceholder.innerHTML = playlistsListTemplate(allPlaylists);
   }
-
   function extractPlaylists(response, accessToken) {
     var playlists = [];
     var current_page = response;
@@ -189,13 +167,11 @@ window.onload=function(){
     }
     updatePlaylists(playlists);
   }
-
   playlistsListPlaceholder.addEventListener('click', function(e) {
     var target = e.target;
     if (target !== null && target.classList.contains('load')) {
       e.preventDefault();
       var link = target.getAttribute('data-link');
-
       $.ajax({
         url: link,
         headers: {
@@ -210,13 +186,11 @@ window.onload=function(){
       });
     }
   });
-
   playlistDetailPlaceholder.addEventListener('click', function(e) {
     var target = e.target;
     if (target !== null && target.classList.contains('load')) {
       e.preventDefault();
       var link = target.getAttribute('data-link');
-
       $.ajax({
         url: link,
         headers: {
@@ -233,15 +207,14 @@ window.onload=function(){
     }
   });
 }//]]>  
-
     </script>
 
 
   </head>
   <body>
-  <!--  <a href="https://github.com/jal278/spotify-playlist-export"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a> -->
+    <a href="https://github.com/jal278/spotify-playlist-export"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
 
-    <br><br>  <center>    <h1>Export Spotify Playlist</h1></center>
+    <br><br>  <center>    <h1>Spotify Playlist Export</h1></center>
     <div class="container">
       <div id="login">
         <button id="login" class="btn btn-primary">Login with Spotify</button>
@@ -307,10 +280,9 @@ window.onload=function(){
 
     <div>
       <BR><BR><BR><HR><BR>
+      <p>For comments/suggestions, feel free to email me at: <a href="mailto:joel@cs.utexas.edu">joel@cs.utexas.edu</a>.</P>
     </div>
   </body>
 
 
 </html>
-
-
